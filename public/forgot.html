@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password, Email, Username</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Forgot Password, Email, Username</h1>
+        <ul class="nav nav-tabs mt-4" id="recoveryTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="email-tab" data-toggle="tab" href="#email" role="tab" aria-controls="email" aria-selected="true">Email</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="phone-tab" data-toggle="tab" href="#phone" role="tab" aria-controls="phone" aria-selected="false">Phone</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="recoveryTabsContent">
+          <div class="tab-pane fade show active" id="email" role="tabpanel" aria-labelledby="email-tab">
+            <form id="forgot-email-form" class="mt-4" action="/forgot/email" method="post">
+              <div class="form-group">
+                <label for="email">Enter your email</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+          <div class="tab-pane fade" id="phone" role="tabpanel" aria-labelledby="phone-tab">
+            <form id="forgot-phone-form" class="mt-4" action="/forgot/phone" method="post">
+              <div class="form-group">
+                <label for="phone">Enter your phone number</label>
+                <input type="tel" id="phone" name="phone" class="form-control" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>    
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script>
+// Get the tabs and form content
+const tabs = document.querySelectorAll('.nav-link');
+const forms = document.querySelectorAll('.tab-pane');
+
+// Add click event listener to each tab
+tabs.forEach((tab) => {
+  tab.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    // Deactivate all tabs and forms
+    tabs.forEach((tab) => tab.classList.remove('active'));
+    forms.forEach((form) => form.classList.remove('show', 'active'));
+
+    // Activate the clicked tab and form
+    const target = event.target.getAttribute('href');
+    document.querySelector(target).classList.add('show', 'active');
+    event.target.classList.add('active');
+  });
+});
+    </script>
+</html>

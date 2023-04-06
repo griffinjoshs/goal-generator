@@ -1,0 +1,53 @@
+    :root {
+      --success-color: #05EA00
+    }
+  
+  .bg-mainColor {
+    background-color: var(--main-color);
+  }
+  
+  .text-mainColor {
+    color: var(--main-text-color)!important;
+
+  }
+  
+  .bg-second {
+    background-color:var(--second-color) !important;
+  }
+
+  .bg-third {
+    background-color:var(--third-color) !important;
+  }
+
+  .bg-forth {
+    background-color:var(--forth-color) !important;
+  }
+
+  .bg-success-color {
+    background-color: var(--success-color)!important;
+  }
+  
+   .hide {
+    display: none;
+   }
+
+.progress {
+    border-radius: 0!important;
+}
+
+.coin-count {
+  border: solid goldenrod 1px;
+  /* min-width: 140px; */
+}
+
+.fa-coins {
+  color: goldenrod;
+}
+
+.coin-count h4, .coin-count h3 {
+  font-size: 35px;
+  padding: 0;
+  margin: 0;
+}
+
+

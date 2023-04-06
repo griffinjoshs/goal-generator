@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="stylesheet" href="/assets/css/navbars.css" />
+    <link rel="stylesheet" href="/assets/css/dashboard.css" />
+    <link rel="stylesheet" href="/assets/css/bootstrap.styles.css" />
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="navbar-container"></div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+<script
+  src="https://kit.fontawesome.com/19b6f885a9.js"
+  crossorigin="anonymous"
+></script>
+<script>
+    function createNavbar(username) {
+
+return `
+<nav class="navbar bg-second p-0">
+<div class="container-fluid h-100 px-0" style="position: relative">
+<div class="nav-left p-0 m-0 h-100 d-flex align-items-center justify-content-left">
+<div class="level p-0 m-0 h-100 flex-grow-1">
+      <div
+        class="navbar-brand bg-primary d-flex justify-content-left align-items-center"
+        href="#"
+        style="height: 100%; max-width: 250px"
+      >
+        <div
+          class="current-level d-flex align-items-center justify-content-center mh-100"
+        >
+          <div
+            class="level-square bg-warning d-flex justify-content-center align-items-center"
+            style="width: 57px; height: 57px"
+          >
+            <h6 class="h2 text-dark">
+              
+              
+              </h6>
+          </div>
+          <div>
+            <div class="username h4">
+              <h3 class="px-2 text-light">@${username}</h3>
+            </div>
+            <div id="level-progress"></div>
+
+            
+          </div>
+        </div>
+      </div>
+      <div></div>
+    </div>
+
+    <div class="total-coin-count" style='min-width: 120px'></div>
+
+  </div>
+  <div class="nav-right p-0 m-0 h-100 d-flex align-items-center justify-content-between w-25">
+  <button class='h1 notifications-dropdown p-0 m-0' style='background: none; border: none'>
+  <i class="fa-solid fa-bell"></i>
+  </button>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#navbar-offcanvas"
+    aria-controls="navbar-offcanvas"
+    style="border: none; outline: none"
+  >
+    <span class="navbar-toggler-icon" style="font-size: 30px"></span>
+  </button>
+  </div>
+  <div
+    class="offcanvas offcanvas-end"
+    tabindex="-1"
+    id="navbar-offcanvas"
+    aria-labelledby="navbar-offcanvas-label"
+  >
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="navbar-offcanvas-label">Menu</h5>
+      <button
+        type="button"
+        class="btn-close text-reset"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</nav>
+
+  `;
+}
+    document.addEventListener("DOMContentLoaded", () => {
+  fetch("/user")
+    .then((response) => {
+      console.log("Response status:", response.status);
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Data:", data);
+      console.log("@" + data.username);
+      // const navbar = createNavbar(data.username);
+      document.querySelector('.navbar-container').innerHTML = createNavbar(data.username);
+      // Update coin count and progress bar with user data
+      document.querySelector('.total-coin-count').innerHTML = '';
+      document.querySelector('.total-coin-count').appendChild(createCoinCount(data.coins));
+      document.querySelector('#level-progress').innerHTML = '';
+      document.querySelector('#level-progress').appendChild(createProgressBar(61, '#05EA00'));
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+
+  // Add event listener to logout button
+  // document.getElementById("logout-form").addEventListener("submit", (event) => {
+  //   event.preventDefault();
+  //   const requestOptions = {
+  //     method: "DELETE",
+  //     headers: { "Content-Type": "application/json" },
+  //   };
+  //   fetch("/logout", requestOptions)
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         window.location.href = "/login";
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // });
+
+function createCoinCount(count) {
+    const coinCount = document.createElement('div');
+    coinCount.classList.add('coin-count', 'd-flex', 'justify-content-evenly', 'align-items-center', 'py-1', 'px-2', 'bg-third', 'rounded-pill');
+    coinCount.style.minWidth = '100px';
+    coinCount.style.width = '0';
+    coinCount.style.height = "35px"; // Set height to the value of the height parameter
+  
+    const coinIcon = document.createElement('h3');
+    coinIcon.style.fontSize = "1.4rem";
+    const coinIconSymbol = document.createElement('i');
+    coinIconSymbol.classList.add('fa-solid', 'fa-coins');
+    coinIcon.appendChild(coinIconSymbol);
+  
+    const coinValue = document.createElement('h3');
+    coinValue.style.fontSize = "1.4rem";
+    coinValue.textContent = count;
+  
+    coinCount.appendChild(coinIcon);
+    coinCount.appendChild(coinValue);
+  
+    return coinCount;
+  }
+  
+  // document.querySelector('.total-coin-count').appendChild(createCoinCount(0));
+    
+  function createProgressBar(percentage, color) {
+  const progressBar = document.createElement('div');
+  progressBar.classList.add('progress');
+  const progressBarInner = document.createElement('div');
+  progressBarInner.classList.add('progress-bar');
+  progressBarInner.style.width = '0%'; // Set initial width to 0%
+  progressBarInner.style.backgroundColor = color;
+  progressBar.appendChild(progressBarInner);
+
+  // Animate the width of the progress bar
+  window.requestAnimationFrame(() => {
+    progressBarInner.style.width = `${percentage}%`;
+    progressBarInner.style.transition = 'width 1.4s ease-in-out';
+  });
+
+  return progressBar;
+}
+
+// document.getElementById('level-progress').appendChild(createProgressBar(61, '#05EA00'));
+
+// function createCircularProgressBar(percentage, color) {
+//   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+//   svg.setAttribute('viewBox', '0 0 50 50');
+//   svg.setAttribute('width', '60%');
+//   svg.setAttribute('height', '60%');
+
+//   const radius = 20;
+//   const circumference = 2 * Math.PI * radius;
+
+//   // Add background circle
+//   const bgCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+//   bgCircle.setAttribute('cx', '50%');
+//   bgCircle.setAttribute('cy', '50%');
+//   bgCircle.setAttribute('r', radius);
+//   bgCircle.setAttribute('fill', 'transparent');
+//   bgCircle.setAttribute('stroke', 'var(--bs-secondary-bg)'); // set background color
+//   bgCircle.setAttribute('stroke-width', '5');
+
+//   // Add progress circle
+//   const progressCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+//   progressCircle.setAttribute('cx', '50%');
+//   progressCircle.setAttribute('cy', '50%');
+//   progressCircle.setAttribute('r', radius);
+//   progressCircle.setAttribute('fill', 'transparent');
+//   progressCircle.setAttribute('stroke', color);
+//   progressCircle.setAttribute('stroke-width', '5');
+//   progressCircle.setAttribute('stroke-dasharray', `${circumference} ${circumference}`);
+//   progressCircle.setAttribute('stroke-dashoffset', circumference);
+
+//   const percentageText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+//   percentageText.setAttribute('x', '50%');
+//   percentageText.setAttribute('y', '50%');
+//   percentageText.setAttribute('text-anchor', 'middle');
+//   percentageText.setAttribute('alignment-baseline', 'middle');
+//   percentageText.setAttribute('font-size', '.5rem');
+//   percentageText.setAttribute('font-weight', 'bold');
+//   percentageText.setAttribute('fill', 'var(--main-text-color)');
+//   percentageText.textContent = `${percentage}%`;
+
+//   svg.appendChild(bgCircle);
+//   svg.appendChild(progressCircle);
+//   svg.appendChild(percentageText);
+
+//   const offset = circumference - percentage / 100 * circumference;
+//   progressCircle.style.strokeDashoffset = circumference;
+//   setTimeout(() => {
+//     progressCircle.style.transition = 'stroke-dashoffset 1s ease-in-out';
+//     progressCircle.style.strokeDashoffset = offset;
+//   }, 100);
+
+//   return svg;
+// }
+
+// document.getElementById('timeframeProgress').appendChild(createCircularProgressBar(72, '#05EA00'));
+    })
+
+</script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</html>

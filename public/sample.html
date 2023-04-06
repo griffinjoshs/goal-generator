@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./assets/css/bootstrap.styles.css" />
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+</head>
+
+<div class="row d-flex justify-content-evenly text-center">
+  <div class="col-6">
+    <div class="mb-3">
+      <label for="goalName" class="form-label addGoal-input-label"
+        >Goal Name:</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="goalName"
+        name="goalName"
+        placeholder="please type the name of your goal"
+      />
+    <div class="mb-3">
+      <label
+        for="goalDescription"
+        class="form-label addGoal-input-label"
+        >Goal Description:</label
+      >
+      <textarea
+        class="form-control"
+        id="goalDescription"
+        name="goalDescription"
+        placeholder="please describe your goal"
+      ></textarea>
+    </div>
+  
+      <ul
+        class="nav nav-pills mb-3 bg-dark"
+        style="width: fit-content; border-radius: 39px"
+        id="reccurrance-pills-tab"
+        role="tablist"
+      >
+        <li class="nav-item">
+          <a
+            class="nav-link day-select-pill active"
+            data-toggle="pill"
+            href="#pills-once"
+            role="tab"
+            aria-controls="pills-once"
+            aria-selected="true"
+            >Once</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link day-select-pill"
+            data-toggle="pill"
+            href="#pills-multiple"
+            role="tab"
+            aria-controls="pills-multiple"
+            aria-selected="false"
+            >Multiple</a
+          >
+        </div>
+        </li>
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+        <div
+          class="tab-pane fade show active"
+          id="pills-once"
+          role="tabpanel"
+          aria-labelledby="pills-home-tab"
+        >
+        <div id="doItOnce">
+          <div class="mb-3">
+            <label for="oneDateInput" class="form-label"
+              >Do it Once:</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              id="oneDateInput"
+              name="oneDateInput"
+              aria-describedby="dateHelp"
+            />
+            <div id="dateHelp" class="form-text">
+              Please select a date.
+            </div>
+          </div>
+        </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="pills-multiple"
+          role="tabpanel"
+          aria-labelledby="pills-profile-tab"
+        >
+        <div class="weekday-container">
+          <button class="choose-days-btn weekday-button">S</button>
+          <button class="choose-days-btn weekday-button">M</button>
+          <button class="choose-days-btn weekday-button">T</button>
+          <button class="choose-days-btn weekday-button">W</button>
+          <button class="choose-days-btn weekday-button">T</button>
+          <button class="choose-days-btn weekday-button">F</button>
+          <button class="choose-days-btn weekday-button">S</button>
+        </div>
+        </div>
+      </div>
+  </div>
+  <div class="col-6">erfsdass</div>
+</div>
+  <script src="./assets/js/bootstrap.min.js"></script>
+
+</body>
+</html>

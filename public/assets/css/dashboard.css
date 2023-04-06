@@ -1,0 +1,238 @@
+.view {
+    display: flex;
+    align-items: center;
+}
+
+.selected-date {
+    font-size: 35px;
+    line-height: 1;
+    /* padding-bottom: 32px; */
+}
+
+.arrow-btn {
+    height: 30px;
+    border: none;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none!important;
+}
+
+.level {
+    width: 300px;
+}
+
+@media (min-width: 768px) {
+    .stat-container {
+        background-color: var(--second-color);
+    }
+}
+
+@media (max-width: 768px) {
+    .stat-container {
+        background-color: var(--main-text-color);
+    }
+
+    .dashboard-page-container {
+        flex-direction: column-reverse;
+       }
+
+    .dashboard-content-row {
+        flex-direction: column-reverse;
+    }  
+}
+
+/* day only styles */
+.day-content .nav-pills .nav-link {
+    color: #A5A5A5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-pills .nav-link:hover {
+    color: var(--main-text-color)!important;
+}
+
+.day-content .nav-pills .nav-link.active {
+    background-color: var(--forth-color)!important;
+    color: var(--main-text-color)!important;
+    font-weight: 600;
+    height: 34px;
+    left: 424px;
+    border-radius: 39px;        
+  }
+
+  /* calandar */
+.calendar .view {
+    margin-top: 20px;
+  }
+  
+  .calendar .change-view {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .calendar table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .calendar th {
+    padding: 10px;
+    text-align: center;
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .calendar td {
+    min-height: 50px;
+    /* padding: 10px; */
+    text-align: center;
+    border: none;
+  }
+  
+  .calendar .day-cell {
+    /* background-color: aqua; */
+    padding: 20px;
+    border: #007bff solid 1px;
+    /* padding: 80px 0; */
+  }
+  
+  .calendar a {
+    /* color: black; */
+    text-decoration: none;
+  }
+  
+  .calendar a:hover {
+    filter: invert(100);
+  }
+  
+  .calendar .active {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .calendar button {
+    margin-right: 10px;
+  }
+  
+  .calendar .prev-month,
+  .calendar .next-month {
+    opacity: 0.5;
+  }
+  
+  .calendar .today {
+    /* background-color: var(--success-color); */
+    background-color: #007bff;
+    color: #fff;
+  }  
+
+  /* modal
+  .pick-goal-modal {
+    padding: 20px 0;
+    border: none;
+}
+
+.pick-goal-modal .list-group-item {
+    border: none;
+}
+
+.list-group-item {
+    border-bottom-right-radius: none!important;
+    border-bottom-left-radius: none!important;
+}
+
+.list-group-item {
+    background-color: var(--main-color)!important;
+    padding: 15px!important;
+}
+
+.list-group-item-action:focus, .list-group-item-action:hover, .list-group-item-action:active {
+    background: var(--third-color)!important;
+    color: var(--main-text-color)!important;
+}
+
+.modal-nav-col h2 {
+    font-size: 20px;
+}
+
+.in-between {
+    margin: 5px;
+    border-top: var(--bs-border-width) solid;
+}
+
+.open-goal-modal-btn {
+    width: 40px;
+}
+
+.add-your-own-goal-btn {
+    margin: 15px 0;
+}
+
+#goal-category-selction {
+    list-style: none;
+  }
+  
+  .goal-list-item {
+    width: 100%;
+    font-size: 30px;
+  } */
+
+  .addGoal-input-label {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  /* modal timeframe select pills on multiple */
+  .day-select-pill {
+    border-radius: 39px!important;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .weekday-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .weekOrMonthDay {
+    background-color: var(--second-color);
+    color: var(--main-text-color);
+    border: none;
+}
+
+.weekOrMonthDay:hover {
+  background-color: #0056b3;
+} 
+
+  .weekday-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #fff;
+    margin: 5px;
+    cursor: pointer;
+  }
+
+
+  .monthday-button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    font-size: 12px;
+    line-height: 1;
+    border-radius: 50%;
+    margin: 2.2px;
+  }
+  
+.how-long h3 {
+  padding: 0;
+  margin: 0;
+}

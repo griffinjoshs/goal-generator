@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewards</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/navbars.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.styles.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="color-toggle form-check form-switch" style="width: fit-content;">
+    <input class="form-check-input" type="checkbox" role="switch" id="toggle-bgColor">
+    <label class="form-check-label" for="toggle-bgColor">Toggle Dark Mode</label>
+  </div>
+  <div class="navbar-container"></div>
+      <div class="container-fluid d-flex px-0 dashboard-page-container">
+        <div class="side-navbar-container">
+        </div>
+        </div>
+</body>
+<script>
+    // color changer
+    // Select the html element
+    const htmlElement = document.querySelector("html");
+    
+    // Function to toggle between light and dark mode
+    // toggle color modes
+    // window.onload = () => { 
+      const toggleBgColor = document.querySelector('#toggle-bgColor');
+    
+    const storedTheme = localStorage.getItem('theme');
+    
+    const setTheme = (theme) => {
+    document.documentElement.setAttribute('data-bs-theme', theme);
+    localStorage.setItem('theme', theme);
+    }
+    
+    
+        const themeChanger = () => {
+            if (toggleBgColor.checked) {
+                setTheme('dark');
+                document.documentElement.style.setProperty('--main-color', 'black');
+                document.documentElement.style.setProperty('--second-color', '#121212');
+                document.documentElement.style.setProperty('--third-color', '#212529');
+                document.documentElement.style.setProperty('--forth-color', '#8e8e8e54');
+                document.documentElement.style.setProperty('--main-text-color', 'white');
+              } else {
+                setTheme('light');
+                document.documentElement.style.setProperty('--main-color', '#e4e4e4');
+                document.documentElement.style.setProperty('--second-color', '#F5F5F5');
+                document.documentElement.style.setProperty('--third-color', 'white');
+                document.documentElement.style.setProperty('--forth-color', '#e4e4e4');
+                document.documentElement.style.setProperty('--main-text-color', 'black');
+              }
+        }
+    
+        toggleBgColor.addEventListener('change', themeChanger)
+      
+    
+    if (storedTheme) {
+    document.documentElement.setAttribute('data-bs-theme', storedTheme);
+    toggleBgColor.checked = storedTheme === 'dark';
+    }
+    // }
+    
+    themeChanger()
+    
+    
+    
+    </script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+     <script
+       src="https://kit.fontawesome.com/19b6f885a9.js"
+       crossorigin="anonymous"
+     ></script>
+<script src="/assets/js/components/topNav.js"></script>
+<script src="/assets/js/components/sideNav.js"></script>
+<script src="/assets/js/components/coin-count.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/scripts.js"></script>
+<script src="/assets/js/colorMode.js"></script>
+<script src="/assets/js/components/progressbar.js"></script>
+</html>

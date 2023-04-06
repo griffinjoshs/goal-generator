@@ -1,0 +1,95 @@
+.navbar-toggler:focus {
+    box-shadow: none!important;
+}
+
+/* .navbar-brand .username {
+    color: #fff;
+} */
+
+.level {
+    width: 300px;
+}
+
+@media (min-width: 768px) {
+    .navbar {
+        height: 100px;
+       }
+
+   .side-navbar-container {
+    width: 120px;
+   }
+
+   .side-navbar {
+    flex-direction: column;
+    height: 90vh;
+   }
+
+   .non-sidebar {
+    width: 92%;
+   }
+
+   .sidenav-item .nav-link {
+    width: 100%;
+    padding: 20px 0;
+}
+
+.sidenav-item h5 {
+    font-size: 15px;
+  }
+
+  .nav-link i {
+    font-size: 25px;
+}
+  }  
+
+
+
+@media (max-width: 768px) {
+    .dashboard-page-container {
+        flex-direction: column-reverse;
+       }
+
+    .dashboard-content-row {
+        flex-direction: column-reverse;
+    }
+
+    .side-navbar-container {
+  
+       }
+
+    .side-navbar {
+        flex-direction: row;
+        position: fixed;
+        bottom: 0;
+    }
+
+    .sidenav-item .nav-link {
+        width: 80px;
+    }  
+
+    .sidenav-item h5 {
+        font-size: 9px;
+      }
+
+      .nav-link i {
+        font-size: 15px;
+}
+}
+
+.sidenav-item a {
+    text-align: center;
+}
+
+.sidenav-item {
+    /* padding: 32px; */
+}
+
+.sidenav-item .active {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .sidenav-item:hover {
+    background-color: #007bff;
+    color: #fff;
+  }

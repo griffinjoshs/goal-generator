@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" integrity="sha512-f7bbuKjWJJV8IvH24h/7j//9/9WeDUq3XYQZIgj7w56z+NhIy8pRyCHofnNYjK9XGdEfDebq57ZnPe5i5Ydn2g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .hide {
+            display: none;
+        }
+        .calendar .view {
+            margin-top: 20px;
+        }
+
+        .calendar .change-view {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .calendar table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .calendar th {
+            padding: 10px;
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .calendar td {
+            min-height: 50px;
+            /* padding: 10px; */
+            text-align: center;
+            border: none;
+        }
+
+        .calendar .day-cell {
+            /* background-color: aqua; */
+            margin: 5px;
+            /* padding: 80px 0; */
+        }
+
+        .calendar a {
+            /* color: black; */
+            text-decoration: none;
+        }
+
+        .calendar a:hover {
+            text-decoration: underline;
+        }
+
+        .calendar .active {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .calendar button {
+            margin-right: 10px;
+        }
+
+        .calendar .prev-month,
+        .calendar .next-month {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="view d-flex justify-content-center">
+        <button id="current-week-btn">
+            Get current week
+        </button>
+        <button id="current-month-btn">
+            Get current month
+        </button>
+    </div>
+    <div class="change-view d-flex justify-content-center">
+        <button id="prev-btn">
+            Prev
+        </button>
+        <button id="next-btn">
+            Next
+        </button>
+    </div>
+    <div class="week-content container hide">
+        <div class="calendar week-calendar"></div>
+    </div>
+    <div class="month-content container hide">
+        <div class="calendar month-calendar"></div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+<script>
+  const calendarWeekDiv = document.querySelector(".week-content .calendar");
+const calendarMonthDiv = document.querySelector(".month-content .calendar");
+const prevBtn = document.getElementById("prev-btn");
+const nextBtn = document.getElementById("next-btn");
+const currentWeekBtn = document.getElementById("current-week-btn");
+const currentMonthBtn = document.getElementById("current-month-btn");
+
+let currentDate = moment();
+
+// Display calendar for current week
+const displayCurrentWeek = () => {
+    document.querySelector(".week-content").classList.remove("hide");
+document.querySelector(".month-content").classList.add("hide");
+
+  const startOfWeek = currentDate.clone().startOf("week");
+  const endOfWeek = currentDate.clone().endOf("week");
+
+  let calendar = "<h2>Current Week</h2>";
+  calendar += `<p>${startOfWeek.format("MMM Do")} - ${endOfWeek.format(
+    "MMM Do"
+  )}</p>`;
+  calendar += "<table>";
+  calendar += "<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>";
+
+  let day = startOfWeek.clone();
+  while (day <= endOfWeek) {
+    calendar += "<tr>";
+    for (let i = 0; i < 7; i++) {
+      const dayFormatted = day.format("MM-DD-YYYY");
+      calendar += `<td><a href="/dashboard/day/${dayFormatted}"><div class="day-cell">${day.format(
+        "D"
+      )}</div></a></td>`;
+      day.add(1, "day");
+    }
+    calendar += "</tr>";
+  }
+
+  calendar += "</table>";
+  calendarWeekDiv.innerHTML = calendar;
+};
+
+// Display calendar for current month
+const displayCurrentMonth = () => {
+    document.querySelector(".week-content").classList.add("hide");
+document.querySelector(".month-content").classList.remove("hide");
+
+  const startOfMonth = currentDate.clone().startOf("month");
+  const endOfMonth = currentDate.clone().endOf("month");
+
+  let calendar = "<h2>Current Month</h2>";
+  calendar += `<p>${startOfMonth.format("MMMM YYYY")}</p>`;
+  calendar += "<table>";
+  calendar += "<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>";
+
+  let day = startOfMonth.clone().subtract(startOfMonth.day(), "days");
+  while (day <= endOfMonth) {
+    calendar += "<tr>";
+    for (let i = 0; i < 7; i++) {
+      const dayFormatted = day.format("MM-DD-YYYY");
+      calendar += `<td><a href="/dashboard/day/${dayFormatted}"><div class="day-cell">${day.format(
+        "D"
+      )}</div></a></td>`;
+      day.add(1, "day");
+    }
+    calendar += "</tr>";
+  }
+
+  calendar += "</table>";
+  calendarMonthDiv.innerHTML = calendar;
+};
+
+// Event listeners for increment and decrement buttons
+prevBtn.addEventListener("click", () => {
+  if (currentWeekBtn.classList.contains("active")) {
+    currentDate.subtract(1, "week");
+    displayCurrentWeek();
+  } else {
+    currentDate.subtract(1, "month");
+    displayCurrentMonth();
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  if (currentWeekBtn.classList.contains("active")) {
+    currentDate.add(1, "week");
+    displayCurrentWeek();
+  } else {
+    currentDate.add(1, "month");
+    displayCurrentMonth();
+  }
+});
+
+// Event listeners for current week and current month buttons
+currentWeekBtn.addEventListener("click", () => {
+currentWeekBtn.classList.add("active");
+currentMonthBtn.classList.remove("active");
+displayCurrentWeek();
+});
+
+currentMonthBtn.addEventListener("click", () => {
+currentWeekBtn.classList.remove("active");
+currentMonthBtn.classList.add("active");
+displayCurrentMonth();
+});
+</script>
+</html>
