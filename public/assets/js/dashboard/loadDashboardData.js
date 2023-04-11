@@ -6,9 +6,11 @@
             document.querySelectorAll(".navbar-container").forEach(function (element) {
   element.innerHTML = createNavbar(data.username, 1);
 });
+console.log(data)
      // Update coin count with user data
      document.querySelector('.total-coin-count').innerHTML = '';
-     document.querySelector('.total-coin-count').appendChild(createCoinCount(24));
+     document.querySelector('.total-coin-count').appendChild(createCoinCount(data.coins));
+     console.log(data.coins)
     //  Update progress bar with user data
      document.querySelector('#level-progress').innerHTML = '';
      document.querySelector('#level-progress').appendChild(createProgressBar(61, '#05EA00'));

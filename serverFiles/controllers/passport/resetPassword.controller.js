@@ -3,45 +3,42 @@ const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 
 async function handleResetPassword(req, res) {
-  console.log(req.body);
-  console.log('handleResetPassword userId:', req.params.userId);
-  console.log('handleResetPassword token:', req.params.token);
-
-  const { userId, token } = req.params;
-  console.log(`User ID: ${userId}, Token: ${token}`);
-
-  const user = await getUserById(userId);
-  console.log("User:", user);
-
-  if (!user) {
-    return res.status(404).json({ message: "User not found" });
-  }
-
-  if (token !== user.resetPasswordToken) {
-    return res.status(400).json({ message: "Invalid or expired token" });
-  }
-
-  if (user.resetPasswordExpires < Date.now()) {
-    return res.status(400).json({ message: "Token has expired" });
-  }
-
-  const { password } = req.body;
-
   try {
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt);
-    user.password = hash;
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
-    await updateUser(user);
-    console.log("User updated:", user);
-    res.status(200).json({ message: "Password reset successful" });
-  } catch (err) {
-    console.log("Error updating user:", err);
-    res.status(500).json({ message: "Failed to reset password" });
-  }  
-}
+    const userId = req.params.userId;
+    const token = req.params.token;
+    const newPassword = req.body.password;
 
+    const user = await getUserById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Check if the provided token matches the stored token and if it's still valid
+    if (
+      user.resetPasswordToken === token &&
+      user.resetPasswordExpires > new Date()
+    ) {
+      // Update the user's password
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      user.password = hashedPassword;
+      user.resetPasswordToken = null;
+      user.resetPasswordExpires = null;
+      await user.save();
+
+      // Send a success response
+      return res.status(200).json({ message: "Password reset successful" });
+    } else {
+      // Send an error response for invalid or expired token
+      return res
+        .status(400)
+        .json({ error: "Invalid or expired token" });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+}
 
 module.exports = {
   handleResetPassword,

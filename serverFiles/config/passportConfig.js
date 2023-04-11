@@ -1,19 +1,18 @@
+// passportConfig.js
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
-const {
-  getUserById,
-  getUserByEmail,
-  getUserByUsername,
-  getUserByPhone,
-} = require("../controllers/passport/user.controller");
+const { Op } = require("sequelize");
+const User = require("../models/user.model");
+const { getUserByEmail, getUserByUsername, getUserByPhone } = require("../controllers/passport/user.controller");
 
 async function initialize(passport) {
   const authenticateUser = async (identifier, password, done) => {
-    // Get the user by email, username, or phone number
-    const user = getUserByEmail(identifier) || getUserByUsername(identifier) || getUserByPhone(identifier);
+    const user = await getUserByEmail(identifier) || await getUserByUsername(identifier) || await getUserByPhone(identifier);
 
     if (user == null) {
-      return done(null, false, { message: "No user found with that email, username, or phone number" });
+      return done(null, false, {
+        message: "No user found with that email, username, or phone number",
+      });
     }
 
     try {
@@ -31,8 +30,9 @@ async function initialize(passport) {
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
-  passport.deserializeUser((id, done) => {
-    done(null, getUserById(id));
+  passport.deserializeUser(async (id, done) => {
+    const user = await User.findByPk(id);
+    done(null, user);
   });
 }
 

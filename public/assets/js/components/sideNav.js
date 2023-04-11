@@ -23,7 +23,7 @@ const displaySideNav = () => {
       <ul class="nav side-navbar w-100 d-flex justify-content-evenly bg-second flex-nowrap">
 
       <li class="sidenav-item nav-item text-mainColor">
-      <a class="nav-link ${window.location.pathname === '/goals' ? 'active' : ''}" href="/goals">
+      <a class="nav-link ${window.location.pathname === 'my/goals' ? 'active' : ''}" href="/my/goals">
         <h2>
         <i class="far fa-check-circle"></i>
         </h2>
@@ -34,7 +34,7 @@ const displaySideNav = () => {
     </li>
         
         <li class="sidenav-item nav-item text-mainColor">
-          <a class="nav-link ${window.location.pathname.startsWith('/dashboard') ? 'active' : ''}" href="/dashboard/day/">
+          <a class="nav-link ${window.location.pathname.startsWith('/my/dashboard') ? 'active' : ''}" href="/my/dashboard/day/">
             <h2>
             <i class="fas fa-clipboard"></i>
             </h2>
@@ -45,7 +45,7 @@ const displaySideNav = () => {
         </li>
 
         <li class="sidenav-item nav-item text-mainColor">
-          <a class="nav-link ${window.location.pathname === '/journal' ? 'active' : ''}" href="/journal">
+          <a class="nav-link ${window.location.pathname === '/my/journal' ? 'active' : ''}" href="/my/journal">
             <h2>
               <i class="fas fa-pen"></i>
             </h2>
@@ -56,7 +56,7 @@ const displaySideNav = () => {
         </li>
 
         <li class="sidenav-item nav-item text-mainColor">
-        <a class="nav-link ${window.location.pathname === '/rewards' ? 'active' : ''}" href="/rewards">
+        <a class="nav-link ${window.location.pathname === '/my/rewards' ? 'active' : ''}" href="/my/rewards">
           <h2>
             <i class="fa-solid fa-trophy"></i>
           </h2>
@@ -67,7 +67,7 @@ const displaySideNav = () => {
       </li>
     
         <li class="sidenav-item nav-item text-mainColor">
-        <a class="nav-link ${window.location.pathname === '/challenges' ? 'active' : ''}" href="/challenges">
+        <a class="nav-link ${window.location.pathname === '/my/challenges' ? 'active' : ''}" href="/my/challenges">
           <h2>
           <i class="fa-solid fa-person-running"></i>
           </h2>

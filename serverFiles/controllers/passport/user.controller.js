@@ -1,29 +1,74 @@
-const { User, users } = require("../../models/user.model");
+// user.controller.js
+const User = require("../../models/user.model");
 
-const getUserByEmail = (email) => users.find((user) => user.email === email);
-const getUserById = (id) => users.find((user) => user.id === id);
-const getUserByUsername = (username) => users.find((user) => user.username === username);
-const getUserByPhone = (phone) => users.find((user) => user.phone === phone);
+console.log('User object:', User);
 
-async function getUserByResetToken(token) {
-  console.log("Searching for user with token:", token); // log the token being searched
-  console.log("Users:", users); // log the users array
-  const user = users.find((user) => user.resetPasswordToken === token);
-  console.log("Found user:", user); // log the found user
-  return user;
-}
-
-const updateUser = (updatedUser) => {
-  const index = users.findIndex((user) => user.id === updatedUser.id);
-  if (index !== -1) {
-    console.log("Updating user:", users[index]); // log the user before update
-    users[index] = updatedUser;
-    console.log("Updated user:", users[index]); // log the user after update
+const getUserById = async (id) => {
+  try {
+    const user = await User.findByPk(id);
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error getting user by ID");
   }
 };
 
-function getUserDetails(req, res) {
-  console.log("Request user:", req.user); // log the request user
+const getUserByEmail = async (email) => {
+  console.log(User); // Add this line
+  try {
+    const user = await User.findOne({ where: { email } });
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error getting user by email");
+  }
+};
+
+const getUserByUsername = async (username) => {
+  try {
+    const user = await User.findOne({ where: { username } });
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error getting user by username");
+  }
+};
+
+const getUserByPhone = async (phone) => {
+  try {
+    const user = await User.findOne({ where: { phone } });
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error getting user by phone");
+  }
+};
+
+const getUserByResetToken = async (token) => {
+  try {
+    console.log("Searching for user with token:", token);
+    const user = await User.findOne({ where: { resetPasswordToken: token } });
+    console.log("Found user:", user);
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error getting user by reset token");
+  }
+};
+
+const updateUser = async (updatedUser) => {
+  try {
+    console.log("Updating user:", updatedUser);
+    await updatedUser.save();
+    console.log("Updated user:", updatedUser);
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error updating user");
+  }
+};
+
+const getUserDetails = async (req, res) => {
+  console.log("Request user:", req.user);
 
   if (!req.user) {
     return res.status(400).json({ error: "User not found in request" });
@@ -35,18 +80,18 @@ function getUserDetails(req, res) {
     lastName: req.user.lastName,
     email: req.user.email,
     username: req.user.username,
-    phone: req.user.phone
+    phone: req.user.phone,
+    coins: req.user.coins,
+    points: req.user.points,
   });
-}
+};
 
 module.exports = {
-  getUserById,
   getUserByEmail,
+  getUserById,
   getUserByUsername,
   getUserByPhone,
   getUserByResetToken,
+  updateUser,
   getUserDetails,
-  updateUser, 
 };
-
-

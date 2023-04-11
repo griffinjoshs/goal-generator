@@ -85,43 +85,51 @@
 
   <script src="./assets/js/bootstrap.min.js"></script>
   <script>
-   document
-  .getElementById("register-form")
-  .addEventListener("submit", (event) => {
-    event.preventDefault();
-    const firstName = document.getElementById("firstName").value;
-    const lastName = document.getElementById("lastName").value;
-    const email = document.getElementById("email").value;
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-    const phone = document.getElementById("phone").value;
+   document.getElementById("register-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const firstName = document.getElementById("firstName").value;
+  const lastName = document.getElementById("lastName").value;
+  const email = document.getElementById("email").value;
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  const phone = document.getElementById("phone").value;
 
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(
-        lastName
-      )}&username=${encodeURIComponent(username)}&email=${encodeURIComponent(
-        email
-      )}&password=${encodeURIComponent(password)}&phone=${encodeURIComponent(phone)}`,
-    };
-
-    fetch("/register", requestOptions)
-      .then((response) => {
-        if (response.ok) {
-          window.location.href = "/login";
-        } else {
-          return response.json();
-        }
-      })
-      .then((data) => {
-        if (data && data.message) {
-          document.getElementById("error-message").innerText = data.message;
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+  console.log("Form submitted with values:", {
+    firstName,
+    lastName,
+    email,
+    username,
+    password,
+    phone,
   });
+
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(
+      lastName
+    )}&username=${encodeURIComponent(username)}&email=${encodeURIComponent(
+      email
+    )}&password=${encodeURIComponent(password)}&phone=${encodeURIComponent(phone)}`,
+  };
+
+  fetch("/register", requestOptions)
+    .then((response) => {
+      console.log("Response received:", response);
+      if (response.ok) {
+        window.location.href = "/login";
+      } else {
+        return response.json();
+      }
+    })
+    .then((data) => {
+      if (data && data.message) {
+        document.getElementById("error-message").innerText = data.message;
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+});
   </script>
 </html>

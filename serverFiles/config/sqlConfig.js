@@ -1,12 +1,13 @@
-// sqlConfig.js
-const { Sequelize } = require("sequelize");
+// sql config
+const Sequelize = require("sequelize");
+const User = require("../models/user.model");
 
 const config = {
   database: {
-    username: "your_mysql_username",
-    password: "your_mysql_password",
-    database: "your_database_name",
-    host: "your_mysql_host",
+    username: "root",
+    password: "",
+    database: "goalsDb",
+    host: "127.0.0.1",
     dialect: "mysql",
   },
 };
@@ -18,7 +19,37 @@ const sequelize = new Sequelize(
   {
     host: config.database.host,
     dialect: config.database.dialect,
+    define: {
+      freezeTableName: true,
+    },
   }
 );
 
-module.exports = sequelize;
+// Function to test the connection
+async function testConnection() {
+  try {
+    await sequelize.authenticate();
+    console.log("Connection to the database has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+}
+
+// Call the function to test the connection
+testConnection();
+
+// Sync models with the database
+sequelize
+  .sync({ force: false }) 
+  // Set to true if you want to recreate the tables (not recommended for production)
+  .then(() => {
+    // console.log("Database & tables created!");
+  })
+  .catch((err) => {
+    console.error("Error syncing database:", err);
+  });
+
+  module.exports = {
+    sequelize,
+    testConnection
+  };

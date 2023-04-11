@@ -40,17 +40,17 @@ exports.getYear = (req, res) => {
 };
 
 exports.redirectToDay = (req, res) => {
-  res.redirect(`/dashboard/day/${currentDay}`);
+  res.redirect(`/my/dashboard/day/${currentDay}`);
 };
 
 exports.redirectToWeek = (req, res) => {
-  res.redirect(`/dashboard/week/${currentWeek}`);
+  res.redirect(`/my/dashboard/week/${currentWeek}`);
 };
 
 exports.redirectToMonth = (req, res) => {
-  res.redirect(`/dashboard/month/${currentMonth}`);
+  res.redirect(`/my/dashboard/month/${currentMonth}`);
 };
 
 exports.redirectToYear = (req, res) => {
-  res.redirect(`/dashboard/year/${currentYear}`);
+  res.redirect(`/my/dashboard/year/${currentYear}`);
 };

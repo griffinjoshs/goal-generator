@@ -13,7 +13,7 @@ document.querySelectorAll(".prev-btn, .next-btn").forEach((btn) => {
   // Add event listener for button clicks
   btn.addEventListener("click", () => {
     const currentUrl = window.location.href;
-    const match = currentUrl.match(/\/dashboard\/(day|week|month|year)\/([\w-]+)/);
+    const match = currentUrl.match(/\/my\/dashboard\/(day|week|month|year)\/([\w-]+)/);
     if (match) {
       const viewType = match[1];
       const value = match[2];
@@ -24,22 +24,22 @@ document.querySelectorAll(".prev-btn, .next-btn").forEach((btn) => {
         case "day":
           date = moment(value, "MM-DD-YYYY");
           btn.classList.contains("prev-btn") ? date.subtract(1, "day") : date.add(1, "day");
-          newUrl = currentUrl.replace(match[0], `/dashboard/day/${date.format("MM-DD-YYYY")}`);
+          newUrl = currentUrl.replace(match[0], `/my/dashboard/day/${date.format("MM-DD-YYYY")}`);
           break;
         case "week":
           date = moment(value, "WW-YYYY");
           btn.classList.contains("prev-btn") ? date.subtract(1, "week") : date.add(1, "week");
-          newUrl = currentUrl.replace(match[0], `/dashboard/week/${date.format("WW-YYYY")}`);
+          newUrl = currentUrl.replace(match[0], `/my/dashboard/week/${date.format("WW-YYYY")}`);
           break;
         case "month":
           date = moment(value, "MM-YYYY");
           btn.classList.contains("prev-btn") ? date.subtract(1, "month") : date.add(1, "month");
-          newUrl = currentUrl.replace(match[0], `/dashboard/month/${date.format("MM-YYYY")}`);
+          newUrl = currentUrl.replace(match[0], `/my/dashboard/month/${date.format("MM-YYYY")}`);
           break;
         case "year":
           date = moment(value, "YYYY");
           btn.classList.contains("prev-btn") ? date.subtract(1, "year") : date.add(1, "year");
-          newUrl = currentUrl.replace(match[0], `/dashboard/year/${date.format("YYYY")}`);
+          newUrl = currentUrl.replace(match[0], `/my/dashboard/year/${date.format("YYYY")}`);
           break;
       }
       
@@ -116,7 +116,8 @@ selectedDate.textContent = formattedDate;
 
 function updateCurrentView() {
   const currentUrl = window.location.href;
-  const match = currentUrl.match(/\/dashboard\/(day|week|month|year)\/([\w-]+)/);
+  const match = currentUrl.match(/\/my\/dashboard\/(day|week|month|year)\/([\w-]+)/);
+
   if (match) {
     const viewType = match[1];
     const value = match[2];

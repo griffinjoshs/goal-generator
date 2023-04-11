@@ -1,33 +1,51 @@
-const bcrypt = require('bcrypt');
+// user.model
+const { DataTypes, Sequelize } = require("sequelize");
+const { sequelize } = require("../config/sqlConfig");
 
-class User {
-  constructor(id, name, username, email, password, phone) {
-    this.id = id;
-    this.name = name;
-    this.username = username;
-    this.email = email;
-    this.password = password;
-    this.phone = phone;
-  }
-
-  static async hashPassword(password) {
-    return await bcrypt.hash(password, 10);
-  }
-}
-
-const users = [
-  {
-    id: "1679865982065",
-    firstName: "Griffin",
-    lastName: "Surett",
-    email: "realgriffjoshs@gmail.com",
-    username: "griffinjoshs",
-    password: "$2b$10$3i2G1//dJtgAyK0bOZfZ..HSIlDv40PjQBukXGINUiG6inmTOnyl2",
-    phone: "7329391309",
+const User = sequelize.define("Users", {
+  id: {
+    type: DataTypes.STRING,
+    primaryKey: true,
   },
-];
+  firstName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  lastName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  phone: {
+    type: DataTypes.STRING,
+  },
+  coins: {
+    type: DataTypes.INTEGER,
+    defaultValue: 10,
+  },
+  points: {
+    type: DataTypes.INTEGER,
+    defaultValue: 10,
+  },
+  resetPasswordToken: {
+    type: DataTypes.STRING,
+  },
+  resetPasswordExpires: {
+    type: DataTypes.DATE,
+  },
+});
 
-module.exports = {
-  User,
-  users,
-};
+module.exports = User;

@@ -9,16 +9,16 @@ views.forEach(view => {
 
 // Set the value of the time-view-select dropdown based on the URL
 const timeViewSelect = document.querySelector('.time-view-select');
-if (pathname.includes('/dashboard/day/')) {
+if (pathname.includes('/my/dashboard/day/')) {
   timeViewSelect.value = 'day';
   document.getElementById('day-view').style.display = 'block';
-} else if (pathname.includes('/dashboard/week/')) {
+} else if (pathname.includes('/my/dashboard/week/')) {
   timeViewSelect.value = 'week';
   document.getElementById('week-view').style.display = 'block';
-} else if (pathname.includes('/dashboard/month/')) {
+} else if (pathname.includes('/my/dashboard/month/')) {
   timeViewSelect.value = 'month';
   document.getElementById('month-view').style.display = 'block';
-} else if (pathname.includes('/dashboard/year/')) {
+} else if (pathname.includes('/my/dashboard/year/')) {
   timeViewSelect.value = 'year';
   document.getElementById('year-view').style.display = 'block';
 }
@@ -28,16 +28,16 @@ timeViewSelect.addEventListener('change', e => {
   const value = e.target.value;
   switch (value) {
     case 'day':
-      window.location.href = '/dashboard/day/';
+      window.location.href = '/my/dashboard/day/';
       break;
     case 'week':
-      window.location.href = '/dashboard/week/';
+      window.location.href = '/my/dashboard/week/';
       break;
     case 'month':
-      window.location.href = '/dashboard/month/';
+      window.location.href = '/my/dashboard/month/';
       break;
     case 'year':
-      window.location.href = '/dashboard/year/';
+      window.location.href = '/my/dashboard/year/';
       break;
   }
 });

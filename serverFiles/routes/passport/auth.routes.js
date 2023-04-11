@@ -10,6 +10,8 @@ const {
   redirectToDashboard,
 } = require("../../controllers/passport/auth.controller");
 
+router.use("/my/", checkAuthenticated);
+
 router.get("/", checkAuthenticated, redirectToDashboard);
 
 router.get("/", checkNotAuthenticated, (req, res) => {
@@ -18,8 +20,10 @@ router.get("/", checkNotAuthenticated, (req, res) => {
 
 router.post("/login", checkNotAuthenticated, loginUser);
 
-router.post("/register", checkNotAuthenticated, registerUser);
-
+router.post("/register", checkNotAuthenticated, (req, res, next) => {
+  console.log("Register endpoint hit");
+  registerUser(req, res, next);
+});
 router.delete("/logout", logoutUser);
 
 module.exports = router;

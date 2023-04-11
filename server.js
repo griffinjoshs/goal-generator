@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 9810;
-const bodyParser = require("body-parser");
 const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
@@ -25,7 +24,7 @@ app.use(
 );
 
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride("_method"));
@@ -49,14 +48,12 @@ app.get("/admin", (req, res) => {
 app.use("/", require("./serverFiles/routes/passport/auth.routes"));
 
 // Require the dashboard routes and use them with the /dashboard prefix
-app.use("/dashboard", require("./serverFiles/routes/appPages/dashboard.routes"));
-app.use("/journal", require("./serverFiles/routes/appPages/journal.routes"));
-app.use(
-  "/challenges",
-  require("./serverFiles/routes/appPages/challenges.routes")
+app.use("/my/dashboard", require("./serverFiles/routes/appPages/dashboard.routes"));
+app.use("/my/journal", require("./serverFiles/routes/appPages/journal.routes"));
+app.use("/my/challenges",require("./serverFiles/routes/appPages/challenges.routes")
 );
-app.use("/goals", require("./serverFiles/routes/appPages/goals.routes"));
-app.use("/rewards", require("./serverFiles/routes/appPages/rewards.routes"));
+app.use("/my/goals", require("./serverFiles/routes/appPages/goals.routes"));
+app.use("/my/rewards", require("./serverFiles/routes/appPages/rewards.routes"));
 
 app.use(require('./serverFiles/routes/passport/passportPages.routes'));
 app.use("/user", require("./serverFiles/routes/passport/user.routes"));

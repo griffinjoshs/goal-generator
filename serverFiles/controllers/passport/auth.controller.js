@@ -1,6 +1,7 @@
+// auth.controller
 const passport = require("passport");
 const bcrypt = require("bcrypt");
-const { User, users } = require("../../models/user.model");
+const User = require("../../models/user.model");
 
 function checkAuthenticated(req, res, next) {
   console.log("Checking authentication");
@@ -15,7 +16,7 @@ function checkAuthenticated(req, res, next) {
 
 function checkNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    return res.redirect("/dashboard/day");
+    return res.redirect("/my/dashboard/day");
   }
   next();
 }
@@ -37,7 +38,7 @@ async function loginUser(req, res, next) {
           return next(err);
         }
         console.log("User logged in:", user);
-        return res.redirect("/dashboard/day");
+        return res.redirect("/my/dashboard/day");
       });
     } catch (error) {
       console.error("Error in login route:", error);
@@ -49,7 +50,8 @@ async function loginUser(req, res, next) {
 async function registerUser(req, res) {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const newUser = {
+
+    const newUser = await User.create({
       id: Date.now().toString(),
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -57,9 +59,10 @@ async function registerUser(req, res) {
       username: req.body.username,
       password: hashedPassword,
       phone: req.body.phone,
-    };
-    users.push(newUser);
-    console.log("User registered:", newUser);
+    });
+
+    console.log("New user created:", newUser.toJSON()); // Log the new user
+
     res.redirect("/login");
   } catch (error) {
     console.error("Error registering user:", error);
@@ -80,7 +83,7 @@ function logoutUser(req, res, next) {
 }
 
 function redirectToDashboard(req, res) {
-  res.redirect("/dashboard/day");
+  res.redirect("/my/dashboard/day");
 }
 
 module.exports = {

@@ -26,7 +26,7 @@ const displayCurrentWeek = (date) => {
       if (day.isSame(moment(), "day")) {
         dayClass = "today";
       }
-      calendar += `<td><a href="/dashboard/day/${dayFormatted}"><div class="day-cell ${dayClass}">${day.format(
+      calendar += `<td><a href="/my/dashboard/day/${dayFormatted}"><div class="day-cell ${dayClass}">${day.format(
         "D"
       )}</div></a></td>`;
       day.add(1, "day");
@@ -56,7 +56,7 @@ const displayCurrentMonth = (date) => {
       for (let i = 0; i < 7; i++) {
         const dayFormatted = day.format("MM-DD-YYYY");
         const dayClass = today.isSame(day, 'day') ? 'today' : '';
-        calendar += `<td><a href="/dashboard/day/${dayFormatted}"><div class="day-cell ${dayClass}">${day.format(
+        calendar += `<td><a href="/my/dashboard/day/${dayFormatted}"><div class="day-cell ${dayClass}">${day.format(
           "D"
         )}</div></a></td>`;
         day.add(1, "day");
